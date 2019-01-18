@@ -16,7 +16,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Tochka\\JsonRpcClient\\": "src/"
+      "Tochka\\JsonRpcSmd\\": "src/"
     }
   }
 }
