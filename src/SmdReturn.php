@@ -25,12 +25,14 @@ class SmdReturn implements SmdItem
 
         $instance->description = $value['description'] ?? null;
         $instance->types = $value['types'] ?? [];
+
+        return $instance;
     }
 
     public function toArray(): array
     {
         $result = [
-            'type' => implode('|', $this->types)
+            'type' => implode('|', $this->types),
         ];
 
         $result = $this->setParameterIfIsSet($result, 'description');

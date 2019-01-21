@@ -23,8 +23,8 @@ abstract class SmdBaseObject implements SmdItem
     public static function fromArray(array $value)
     {
         if (static::class === self::class) {
-            $objectType = $value['objectType'] ?? key(reset(self::TYPES));
-            $className = self::TYPES[$objectType] ?? reset(self::TYPES);
+            $objectType = $value['objectType'] ?? array_keys(self::TYPES)[0];
+            $className = self::TYPES[$objectType] ?? array_values(self::TYPES)[0];
 
             /** @var self $instance */
             return $className::fromArray($value);

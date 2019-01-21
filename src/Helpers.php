@@ -4,7 +4,7 @@ namespace Tochka\JsonRpcSmd;
 
 trait Helpers
 {
-    protected $data = [];
+    private $data = [];
 
     public function __set($name, $value)
     {
@@ -53,7 +53,7 @@ trait Helpers
      *
      * @return array
      */
-    protected function setSmdItemsParameter($value)
+    protected function setSmdItemsParameter($value): array
     {
         return array_values(array_map(function ($parameter) {
             /** @var SmdItem $parameter */
@@ -67,7 +67,7 @@ trait Helpers
      *
      * @return array
      */
-    protected function getSmdItemsParameter($class, $value)
+    protected function getSmdItemsParameter($class, $value): array
     {
         return array_map(function ($parameter) use ($class) {
             /** @var SmdItem $class */

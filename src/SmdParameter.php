@@ -33,7 +33,24 @@ class SmdParameter implements SmdItem
 
     public static function fromArray(array $value): self
     {
+        $instance = new self();
 
+        $instance->name = $value['name'] ?? null;
+        $instance->types = $value['types'] ?? [];
+        $instance->typeVariants = $value['typeVariants'] ?? [];
+        $instance->description = $value['description'] ?? null;
+        $instance->optional = $value['optional'] ?? false;
+        $instance->default = $value['default'] ?? null;
+        $instance->array = $value['array'] ?? false;
+        $instance->example = $value['example'] ?? null;
+        $instance->typeFormat = $value['typeFormat'] ?? null;
+        $instance->typeAdditional = $value['typeAdditional'] ?? null;
+        $instance->typeVariants = $value['typeVariants'] ?? null;
+        $instance->is_root = $value['is_root'] ?? false;
+
+        $instance->parameters = $instance->getSmdItemsParameter(self::class, $value['parameters'] ?? []);
+
+        return $instance;
     }
 
     public function toArray(): array

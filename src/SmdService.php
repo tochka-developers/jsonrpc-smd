@@ -11,7 +11,7 @@ namespace Tochka\JsonRpcSmd;
  * @property string $groupName
  * @property SmdParameter[] $parameters
  * @property SmdReturn $return
- * @property SmdReturnParameter[] $returnParameters
+ * @property SmdParameter[] $returnParameters
  * @property array $acl
  * @property string $endpoint
  * @property bool $deprecated
@@ -19,7 +19,7 @@ namespace Tochka\JsonRpcSmd;
  * @property string $warning
  * @property string $requestExample
  * @property string $responseExample
- * @property SmdObject[] $objects
+ * @property SmdBaseObject[] $objects
  * @property string[] $tags
  *
  * @package Tochka\JsonRpcSmd
@@ -57,8 +57,8 @@ class SmdService implements SmdItem
         $instance->tags = $value['tags'] ?? [];
 
         $instance->parameters = $instance->getSmdItemsParameter(SmdParameter::class, $value['parameters'] ?? []);
-        $instance->returnParameters = $instance->getSmdItemsParameter(SmdReturnParameter::class, $value['returnParameters'] ?? []);
-        $instance->objects = $instance->getSmdItemsParameter(SmdObject::class, $value['objects'] ?? []);
+        $instance->returnParameters = $instance->getSmdItemsParameter(SmdParameter::class, $value['returnParameters'] ?? []);
+        $instance->objects = $instance->getSmdItemsParameter(SmdBaseObject::class, $value['objects'] ?? []);
 
         return $instance;
     }
@@ -93,5 +93,4 @@ class SmdService implements SmdItem
         
         return $result;
     }
-
 }

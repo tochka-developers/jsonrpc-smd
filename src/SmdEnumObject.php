@@ -12,8 +12,6 @@ namespace Tochka\JsonRpcSmd;
  */
 class SmdEnumObject extends SmdBaseObject
 {
-    use Helpers;
-
     public const TYPE_ENUM = 'enum';
 
     public function __construct()

@@ -18,7 +18,7 @@ use RuntimeException;
  * @property bool $namedParameters
  * @property bool $acl
  * @property SmdService[] $services
- * @property SmdObject[] $objects
+ * @property SmdBaseObject[] $objects
  *
  * @package Tochka\JsonRpcSmd
  */
@@ -60,7 +60,7 @@ class SmdDescription implements SmdItem
         $instance->acl = $value['acl'] ?? false;
 
         $instance->services = $instance->getSmdItemsParameter(SmdService::class, $value['services'] ?? []);
-        $instance->objects = $instance->getSmdItemsParameter(SmdObject::class, $value['objects'] ?? []);
+        $instance->objects = $instance->getSmdItemsParameter(SmdBaseObject::class, $value['objects'] ?? []);
 
         return $instance;
     }

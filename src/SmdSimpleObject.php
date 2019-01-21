@@ -11,8 +11,6 @@ namespace Tochka\JsonRpcSmd;
  */
 class SmdSimpleObject extends SmdBaseObject
 {
-    use Helpers;
-
     public const TYPE_OBJECT = 'object';
 
     public function __construct()
