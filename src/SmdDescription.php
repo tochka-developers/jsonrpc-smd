@@ -4,26 +4,42 @@ namespace Tochka\JsonRpcSmd;
 
 use RuntimeException;
 
+/**
+ * Class SmdDescription
+ *
+ * @property string $transport
+ * @property string $envelope
+ * @property string $SMDVersion
+ * @property string $contentType
+ * @property string $generator
+ * @property string $target
+ * @property string $description
+ * @property array $additionalHeaders
+ * @property bool $namedParameters
+ * @property bool $acl
+ * @property SmdService[] $services
+ * @property SmdObject[] $objects
+ *
+ * @package Tochka\JsonRpcSmd
+ */
 class SmdDescription implements SmdItem
 {
+    use Helpers;
+
     protected const ENVELOPE = 'JSON-RPC-2.0';
     protected const SMD_VERSION = '2.0';
 
-    public $transport = 'POST';
-    public $envelope = self::ENVELOPE;
-    public $SMDVersion = self::SMD_VERSION;
-    public $contentType = 'application/json';
-    public $generator = 'Tochka/JsonRpc';
-
-    public $target;
-    public $description;
-    public $additionalHeaders;
-    public $namedParameters;
-    public $acl;
-
-    public $services = [];
-    public $enumObjects = [];
-    public $objects = [];
+    public function __construct()
+    {
+        $this->transport = 'POST';
+        $this->envelope = self::ENVELOPE;
+        $this->SMDVersion = self::SMD_VERSION;
+        $this->contentType = 'application/json';
+        $this->generator = 'Tochka/JsonRpc';
+        $this->additionalHeaders = [];
+        $this->services = [];
+        $this->objects = [];
+    }
 
     public static function fromArray(array $value): self
     {
@@ -43,9 +59,8 @@ class SmdDescription implements SmdItem
         $instance->namedParameters = $value['namedParameters'] ?? true;
         $instance->acl = $value['acl'] ?? false;
 
-        $instance->services = array_map(function ($service) {
-            return SmdService::fromArray($service);
-        }, $value['services'] ?? []);
+        $instance->services = $instance->getSmdItemsParameter(SmdService::class, $value['services'] ?? []);
+        $instance->objects = $instance->getSmdItemsParameter(SmdObject::class, $value['objects'] ?? []);
 
         return $instance;
     }
@@ -63,10 +78,8 @@ class SmdDescription implements SmdItem
             'additionalHeaders' => $this->additionalHeaders,
             'namedParameters'   => $this->namedParameters,
             'acl'               => $this->acl,
-            'services'          => array_map(function ($item) {
-                /** @var $item SmdService */
-                return $item->toArray();
-            }, $this->services),
+            'services'          => $this->setSmdItemsParameter($this->services),
+            'objects'           => $this->setSmdItemsParameter($this->objects),
         ];
     }
 
