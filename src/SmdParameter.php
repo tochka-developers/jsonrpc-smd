@@ -40,9 +40,15 @@ class SmdParameter implements SmdItem
         $instance->typeVariants = $value['typeVariants'] ?? [];
         $instance->description = $value['description'] ?? null;
         $instance->optional = $value['optional'] ?? false;
-        $instance->default = $value['default'] ?? null;
+        
+        if (array_key_exists('default', $value)) {
+            $instance->default = $value['default'];
+        }
+        if (array_key_exists('example', $value)) {
+            $instance->example = $value['example'];
+        }
+        
         $instance->array = $value['array'] ?? false;
-        $instance->example = $value['example'] ?? null;
         $instance->typeFormat = $value['typeFormat'] ?? null;
         $instance->typeAdditional = $value['typeAdditional'] ?? null;
         $instance->typeVariants = $value['typeVariants'] ?? null;

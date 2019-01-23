@@ -44,11 +44,13 @@ class SmdDescription implements SmdItem
     public static function fromArray(array $value): self
     {
         $instance = new self();
-
-        if ($value['envelope'] ?? null !== self::ENVELOPE || $value['MDVersion'] ?? null !== self::SMD_VERSION) {
+        
+        if (($value['envelope'] ?? null) !== self::ENVELOPE || ($value['SMDVersion'] ?? null) !== self::SMD_VERSION) {
             throw new RuntimeException('Invalid SMD-scheme');
         }
 
+        $instance->envelope = $value['envelope'];
+        $instance->SMDVersion = $value['SMDVersion'];
         $instance->transport = $value['transport'] ?? 'POST';
         $instance->contentType = $value['contentType'] ?? 'application/json';
         $instance->generator = $value['generator'] ?? 'Tochka/JsonRpc';
